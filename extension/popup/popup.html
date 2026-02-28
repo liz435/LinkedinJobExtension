@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Resume Reviser</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <div class="header">
+      <span class="logo">Resume Reviser</span>
+      <span class="model-badge">Claude Sonnet</span>
+    </div>
+
+    <!-- Tab Nav -->
+    <div class="tab-nav" role="tablist">
+      <button class="tab-btn active" data-tab="job" role="tab">Job</button>
+      <button class="tab-btn" data-tab="resume" role="tab">Resume</button>
+      <button class="tab-btn" data-tab="cover" role="tab">Cover Letter</button>
+      <button class="tab-btn disabled" data-tab="results" role="tab" id="results-tab">Results</button>
+    </div>
+
+    <!-- Status banner -->
+    <div class="status-banner hidden" id="status-banner"></div>
+
+    <!-- Tab Panels -->
+    <div class="tab-panels">
+
+      <!-- Job Description Tab -->
+      <div class="tab-panel active" id="tab-job">
+        <label class="field-label">Job Title & Company</label>
+        <input type="text" id="job-title" class="text-input" placeholder="e.g. Software Engineer at Acme Corp" />
+
+        <label class="field-label">Job Description</label>
+        <textarea id="job-description" class="textarea" rows="12"
+          placeholder="Job description will auto-fill when on a LinkedIn job page..."></textarea>
+
+        <button class="btn btn-secondary" id="refetch-btn">Re-fetch from page</button>
+      </div>
+
+      <!-- Resume Tab -->
+      <div class="tab-panel hidden" id="tab-resume">
+        <div class="upload-zone" id="resume-upload-zone">
+          <input type="file" id="resume-file" accept=".pdf,.docx" class="file-input" />
+          <div class="upload-prompt">
+            <span class="upload-icon">+</span>
+            <p>Drop PDF or DOCX here, or <label for="resume-file" class="link">browse</label></p>
+          </div>
+          <div class="file-chosen hidden" id="resume-file-chosen"></div>
+        </div>
+
+        <div class="divider"><span>OR</span></div>
+
+        <label class="field-label">Paste Resume Text</label>
+        <textarea id="resume-text" class="textarea" rows="10"
+          placeholder="Paste your resume text here..."></textarea>
+      </div>
+
+      <!-- Cover Letter Tab -->
+      <div class="tab-panel hidden" id="tab-cover">
+        <p class="optional-note">Cover letter is optional. Leave blank to skip.</p>
+
+        <div class="upload-zone" id="cover-upload-zone">
+          <input type="file" id="cover-file" accept=".pdf,.docx" class="file-input" />
+          <div class="upload-prompt">
+            <span class="upload-icon">+</span>
+            <p>Drop PDF or DOCX here, or <label for="cover-file" class="link">browse</label></p>
+          </div>
+          <div class="file-chosen hidden" id="cover-file-chosen"></div>
+        </div>
+
+        <div class="divider"><span>OR</span></div>
+
+        <label class="field-label">Paste Cover Letter Text</label>
+        <textarea id="cover-text" class="textarea" rows="8"
+          placeholder="Paste your cover letter text here (optional)..."></textarea>
+
+        <button class="btn btn-primary analyze-btn" id="analyze-btn">
+          Analyze & Revise
+        </button>
+      </div>
+
+      <!-- Results Tab -->
+      <div class="tab-panel hidden" id="tab-results">
+        <div class="result-section">
+          <h3>Key Changes Made</h3>
+          <ul id="bullet-points" class="bullet-list"></ul>
+        </div>
+
+        <div class="result-section">
+          <h3>Revised Resume</h3>
+          <div class="result-actions">
+            <button class="btn btn-sm" id="copy-resume-btn">Copy</button>
+          </div>
+          <pre id="revised-resume" class="result-text"></pre>
+        </div>
+
+        <div class="result-section" id="cover-result-section">
+          <h3>Revised Cover Letter</h3>
+          <div class="result-actions">
+            <button class="btn btn-sm" id="copy-cover-btn">Copy</button>
+          </div>
+          <pre id="revised-cover" class="result-text"></pre>
+        </div>
+      </div>
+
+    </div><!-- end tab-panels -->
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
